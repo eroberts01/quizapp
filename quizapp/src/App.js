@@ -1,9 +1,11 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import './App.css';
+
 import {QuestionShuffler} from './components/QuestionShuffler';
 import { Navbar } from './components/Navbar';
 import QuizRow from './components/QuizRow';
 import QuizPage from "./pages/QuizPage";
+
 
 function App() {
   return (
