@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import questions_file from './../questions.json';
 import { AnswerFeedback } from './AnswerFeedback';
 
@@ -8,7 +9,10 @@ const shuffle = (array) => {
 }
 
 export function QuestionShuffler() {
-    let shuffled_questions = shuffle(questions_file["Test quiz"]["questions"]);
+    const params = useParams();
+    const quizId = params['id'];
+    let shuffled_questions = shuffle(questions_file[quizId]["questions"]);
+
     return (
         <div>
             {shuffled_questions.map((q) => <AnswerFeedback question={q} answer="A"/>)}
