@@ -1,6 +1,7 @@
 import React from 'react';
 import questions_file from './../questions.json';
-import { AnswerFeedback } from './AnswerFeedback';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 // taken from https://www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
 const shuffle = (array) => {
@@ -11,7 +12,27 @@ export function QuestionShuffler() {
     let shuffled_questions = shuffle(questions_file["Test quiz"]["questions"]);
     return (
         <div>
-            {shuffled_questions.map((q) => <AnswerFeedback question={q} answer="A"/>)}
-        </div>
+
+            <Form>
+                <h3>Questions:</h3>
+                {shuffled_questions.map((q) =>
+                    <div className='question'>
+                        <p>{q.question}</p>
+                            {Object.keys(q.answer_choices).map((a) =>
+                                <div className='answerChoices'>
+                                    <input type="radio" name="answerRadioButton" id="answer" />
+                                    <label for="answer">
+                                        {q.answer_choices[a]}
+                                    </label>
+                                </div>)}
+                    </div>
+                )
+                }
+                <>
+                    <Button variant="submit">Submit</Button>
+                </>
+            </Form >
+
+        </div >
     );
 }
