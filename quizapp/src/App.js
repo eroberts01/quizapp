@@ -1,5 +1,7 @@
 import './App.css';
-import { QuestionShuffler } from './components/QuestionShuffler';
+
+import {QuestionShuffler} from './components/QuestionShuffler';
+
 
 function App() {
   return (

@@ -12,6 +12,7 @@ export function QuestionShuffler() {
     let shuffled_questions = shuffle(questions_file["Test quiz"]["questions"]);
     return (
         <div>
+
             <Form>
                 <h3>Questions:</h3>
                 {shuffled_questions.map((q) =>
