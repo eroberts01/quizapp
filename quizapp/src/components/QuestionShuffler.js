@@ -13,7 +13,7 @@ export function QuestionShuffler() {
     return (
         <div>
             <Form>
-                <h3>Multiple Choice Questions:</h3>
+                <h3>Questions:</h3>
                 {shuffled_questions.map((q) =>
                     <div className='question'>
                         <p>{q.question}</p>
