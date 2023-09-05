@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import questions_file from './../questions.json';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
+import { Button, Form } from 'react-bootstrap';
 // taken from https://www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
 const shuffle = (array) => {
     return array.sort(() => Math.random() - 0.5);

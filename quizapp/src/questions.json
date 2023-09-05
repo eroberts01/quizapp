@@ -50,18 +50,6 @@
                     "D": "Model-based Agent"
                 }
             },
-              {
-                "question": "What is the first letter of the alphabet?",
-                "type": "multiple_choice",
-                "answer_choices": {
-                    "A": "A",
-                    "B": "B",
-                    "C": "C",
-                    "D": "D"
-
-                },
-                "answer": "A"
-            },
             {
 
                 "question": "Which of the following is a linear data structure?",
@@ -83,18 +71,6 @@
                     "C": "*(*a + 2)",
                     "D": "&(a + 2)"
                 }
-            },
-            {
-
-                "question": "What is the second letter of the alphabet?",
-                "type": "multiple_choice",
-                "answer_choices": {
-                    "A": "A",
-                    "B": "B",
-                    "C": "C",
-                    "D": "D"
-                },
-                "answer": "B"
             },
             {
 
@@ -152,17 +128,6 @@
                     "F": "False"
                 },
                 "answer": "F"
-            },
-            {
-                "question": "What is the third letter of the alphabet?",
-                "type": "multiple_choice",
-                "answer_choices": {
-                    "A": "A",
-                    "B": "B",
-                    "C": "C",
-                    "D": "D"
-                },
-                "answer": "C"
             }
         ]
     }
