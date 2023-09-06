@@ -48,7 +48,8 @@
                     "B": "Goal-based agent",
                     "C": "Utility-based agent",
                     "D": "Model-based Agent"
-                }
+                },
+                "answer": "D"
             },
             {
 
@@ -70,7 +71,8 @@
                     "B": "*(a+2)",
                     "C": "*(*a + 2)",
                     "D": "&(a + 2)"
-                }
+                },
+                "answer": "A"
             },
             {
 

@@ -21,12 +21,12 @@ export default function QuizForm() {
     const [data, setData] = useState({passedQuestions: [], quizResults: [], isVisible: false});
     return (
         !data.isVisible ? 
-            <Form className='p-3 col-6 justify-content-center' onSubmit={(e) => {
+            <Form className='p-3 col-6' onSubmit={(e) => {
                 e.preventDefault();
                 setData({passedQuestions: shuffled_questions,
                     quizResults: Array.from(answers.map(ans => ans.question)), isVisible: true});
             }}>
-                <h3>Questions:</h3>
+                <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
                     <div className='question'>
                         <p>{id + 1}. {q.question}</p>
