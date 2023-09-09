@@ -28,8 +28,6 @@ export default function QuizForm() {
         !data.isVisible ?
             <Form className='p-3 col-6' onSubmit={(e) => {
                 e.preventDefault();
-                console.log(Array.from(Object.values(answers)).length)
-                console.log(Array.from(Object.values(shuffled_questions)).length)
                 setData({
                     passedQuestions: shuffled_questions,
                     quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
