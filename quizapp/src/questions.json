@@ -6,12 +6,12 @@
                 "question": "What is the first letter of the alphabet?",
                 "type": "multiple_choice",
                 "answer_choices": {
-                    "A": "A",
+                    "A": "Alpha",
                     "B": "B",
                     "C": "C",
                     "D": "D"
                 },
-                "answer": "A"
+                "answer": "Alpha"
             },
             {
                 "question": "What is the second letter of the alphabet?",
@@ -55,7 +55,7 @@
                     "C": "Utility-based agent",
                     "D": "Model-based Agent"
                 },
-                "answer": "D"
+                "answer": "Model-based Agent"
             },
             {
 
@@ -67,7 +67,7 @@
                     "C": "Array",
                     "D": "Graphs"
                 },
-                "answer": "C"
+                "answer": "Array"
             },
             {
                 "question": "How is the 2nd element in an array accessed based on pointer notation?",
@@ -78,7 +78,7 @@
                     "C": "*(*a + 2)",
                     "D": "&(a + 2)"
                 },
-                "answer": "A"
+                "answer": "*a + 2"
             },
             {
 
@@ -90,7 +90,7 @@
                     "C": "Prims Algorithm",
                     "D": "Djikstra's Algorithm"
                 },
-                "answer": "D"
+                "answer": "Djikstra's Algorithm"
             },
             {
                 "question": "Which of the following algorithms are used to find the shortest path from a source node to all other nodes in a weighted graph?",
@@ -99,7 +99,7 @@
                     "T": "True",
                     "F": "False"
                 },
-                "answer": "T"
+                "answer": "True"
             },
             {
                 "question": "Binary search in a sorted array is worst case O(n)",
@@ -108,7 +108,7 @@
                     "T": "True",
                     "F": "False"
                 },
-                "answer": "T"
+                "answer": "True"
             },
             {
                 "question": "The number of collisions in a hash table is solely dependent on the table capacity and the hash function",
@@ -117,7 +117,7 @@
                     "T": "True",
                     "F": "False"
                 },
-                "answer": "F"
+                "answer": "False"
             },
             {
                 "question": "AVL trees and BSTs never have the same tight big-O runtime for inserting elements",
@@ -126,7 +126,7 @@
                     "T": "True",
                     "F": "False"
                 },
-                "answer": "F"
+                "answer": "False"
             },
             {
                 "question": "To find the shortest path from one vertex to another in an unweighted graph, you should use Dijkstra’s algorithm as it is the most efficient solution.",
@@ -135,7 +135,7 @@
                     "T": "True",
                     "F": "False"
                 },
-                "answer": "F"
+                "answer": "False"
             }
         ]
     }
