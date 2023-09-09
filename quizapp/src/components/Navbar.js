@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export function Navbar(){
     return <nav className="navbar navbar-dark bg-dark text-light pb-3 pt-3">
             <div className="container-fluid">
-                <Link className="nav-link navbar-brand" aria-current="page" to="/quizapp"><h3>Navbar</h3></Link>
+                <Link className="nav-link navbar-brand" aria-current="page" to="/quizapp"><h3>SWE 632 Quiz App</h3></Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
