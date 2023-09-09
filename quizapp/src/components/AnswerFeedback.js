@@ -17,7 +17,7 @@ export function AnswerFeedback(props) {
                     {q.type === 'multiple_choice' || q.type === 'true_false' ?
                         Object.keys(q.answer_choices).map((a) =>
                             <div className="answerChoices">
-                                {props.data.quizResults[questionId] === a ?
+                                {props.data.quizResults[questionId] === q.answer_choices[a] ?
                                     <>
                                         <input type="radio" name={questionId} className='p-2' id={a + '_' + questionId} value={q.answer_choices[a]} disabled checked />
                                         <label htmlFor={a + '_' + questionId} className='p-2'>{q.answer_choices[a]}</label>
@@ -28,7 +28,8 @@ export function AnswerFeedback(props) {
                                         <label htmlFor={a + '_' + questionId} className='p-2'>{q.answer_choices[a]}</label>
 
                                     </>}
-                                {a === q.answer ? <span className="text-success p-1">
+                                {q.answer_choices[a] === q.answer ? 
+                                <span className="text-success p-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z" />
                                     </svg>
