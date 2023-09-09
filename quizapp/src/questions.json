@@ -34,6 +34,12 @@
                     "D": "D"
                 },
                 "answer": "C"
+            },
+            {
+                "question": "2 + 2 = ?",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "4"
             }
         ]
     },

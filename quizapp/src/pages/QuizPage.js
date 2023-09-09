@@ -13,6 +13,7 @@ export default function QuizPage(){
             <div className="card-body">
                 <h5 className="card-title">This quiz contains:</h5>
                 <p className="card-text">{quiz['questions'].length} questions.</p>
+                <Link to={"/quizapp/"} className="btn btn-primary">Back</Link>
                 <Link to={"/quizapp/" + quizId} className="btn btn-primary">Start</Link>
             </div>
         </div>
