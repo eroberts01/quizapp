@@ -1,7 +1,25 @@
 .App {
   text-align:left;
+  
 }
 
+body {
+  align-content: center;
+  background-color:#fdf4df;
+}
+
+.card {
+  text-align: center;
+  align-content: center;
+  background-color:#434a58;
+  color: white;
+}
+
+.card-body{
+  
+  text-align: center;
+  align-content: center;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

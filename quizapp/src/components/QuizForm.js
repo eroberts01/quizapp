@@ -51,7 +51,7 @@ export default function QuizForm() {
                             :
                             <input className="form-control" name={id} id={id} placeholder='answer'
                                 onChange={(e) => {
-                                    answers[id] = { question: id, answer: e.target.value };
+                                    answers[id] = { question: id, answer: e.target.value.toLowerCase() };
                                     setAnswers(answers);
                                     setAnsweredSoFar(Array.from(Object.values(answers)).length)
                                 }} />
