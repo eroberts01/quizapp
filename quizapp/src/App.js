@@ -18,11 +18,10 @@ function App() {
       < div className="App">
         <Navbar onFilterQuizzes={onFilterQuizzes}/>
       <Routes>
-        <Route path="/quizapp/:id/start" element={<QuizPage/>}/>
-        <Route path="/quizapp/:id" element={<QuizForm/>}/>
-        <Route path="/quizapp/shuffle" element={<QuestionShuffler/>}/>
-        <Route path="/quizapp" element={<QuizRow searchVal={quizVal}/>}/>
-        <Route path="/" element={<Navigate replace to="/quizapp"/>}/>
+        <Route path="/:id/start" element={<QuizPage/>}/>
+        <Route path="/:id" element={<QuizForm/>}/>
+        <Route path="/shuffle" element={<QuestionShuffler/>}/>
+        <Route path="" element={<QuizRow searchVal={quizVal}/>}/>
       </Routes>
       </div>
   );
