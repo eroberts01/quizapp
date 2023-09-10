@@ -15,7 +15,7 @@ function App() {
       setQuizVal(searchVal);
   }
   return (
-      <>
+      < div className="App">
         <Navbar onFilterQuizzes={onFilterQuizzes}/>
       <Routes>
         <Route path="/quizapp/:id/start" element={<QuizPage/>}/>
@@ -24,7 +24,7 @@ function App() {
         <Route path="/quizapp" element={<QuizRow searchVal={quizVal}/>}/>
         <Route path="/" element={<Navigate replace to="/quizapp"/>}/>
       </Routes>
-      </>
+      </div>
   );
 }
 
