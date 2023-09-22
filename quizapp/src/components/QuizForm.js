@@ -33,6 +33,7 @@ export default function QuizForm() {
                     quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
                 });
             }}>
+                <h2 className='mb-5 text-center'>{questions_file[quizId]["name"]}</h2>
                 <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
                     <div className='question'>
