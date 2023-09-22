@@ -1,6 +1,7 @@
 {
     "1": {
         "name": "Test quiz 1",
+        "subject" : "Data Structures",
         "questions": [
             {
                 "question": "What is the first letter of the alphabet?",
@@ -45,6 +46,7 @@
     },
     "2": {
         "name": "Test quiz 2",
+        "subject": "General CS topics",
         "questions": [
                 {
                 "question": "Which agents selects actions based on current precept, disregarding precept sequence?",
