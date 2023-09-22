@@ -11,15 +11,20 @@ import { BrowserRouter } from "react-router-dom";
 import { useState } from "react";
 function App() {
   const [quizVal, setQuizVal] = useState('');
+  const [searchBarVisible, setSearchBarVisible] = useState(true);
   const onFilterQuizzes = (searchVal) => {
       setQuizVal(searchVal);
   }
+  const onSetSearchBarVisible = (val) => {
+    console.log(val);
+    setSearchBarVisible(val);
+  }
   return (
       < div className="App">
-        <Navbar onFilterQuizzes={onFilterQuizzes}/>
+        <Navbar onFilterQuizzes={onFilterQuizzes} searchBarVisible={searchBarVisible} />
       <Routes>
         <Route path="/:id/start" element={<QuizPage/>}/>
-        <Route path="/:id" element={<QuizForm/>}/>
+        <Route path="/:id" element={<QuizForm onSetSearchBarVisible={onSetSearchBarVisible}/>}/>
         <Route path="/shuffle" element={<QuestionShuffler/>}/>
         <Route path="" element={<QuizRow searchVal={quizVal}/>}/>
       </Routes>

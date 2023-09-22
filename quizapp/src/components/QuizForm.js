@@ -11,11 +11,12 @@ const shuffle = (array) => {
 }
 
 
-export default function QuizForm() {
+export default function QuizForm(props) {
     const params = useParams();
     const quizId = params['id'];
     const [shuffled_questions, setQuestions] = useState([]);
     useEffect(() => {
+        props.onSetSearchBarVisible(false);
         setQuestions(shuffle(questions_file[quizId]["questions"]));
     }, []);
     const [answers, setAnswers] = useState({});
@@ -28,6 +29,7 @@ export default function QuizForm() {
         !data.isVisible ?
             <Form className='p-3 col-6' onSubmit={(e) => {
                 e.preventDefault();
+                props.onSetSearchBarVisible(true);
                 setData({
                     passedQuestions: shuffled_questions,
                     quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
