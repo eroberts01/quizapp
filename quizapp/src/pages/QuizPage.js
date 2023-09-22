@@ -12,8 +12,7 @@ export default function QuizPage() {
                 <div className="card-header"> <h3>{quiz['name']}</h3>
                 <div className="card-body">
                     <h5 className="card-title">This quiz contains:</h5>
-                    <p className="card-text">{quiz['subject']} questions.</p>
-                    {/* <p className="card-text">{quiz['questions'].length} questions.</p> */}
+                    <p className="card-text">{quiz['questions'].length} questions.</p>
                     <Link to={"/"} className="btn btn-secondary me-2">Back</Link>
                     <Link to={"/" + quizId} className="btn btn-primary">Start</Link>
                 </div>

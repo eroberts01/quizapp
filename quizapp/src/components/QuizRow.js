@@ -34,7 +34,7 @@ export default function QuizRow({ searchVal }) {
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title">{quiz.name}</h5>
-                                <div>{quiz.questions.length} questions</div><br />
+                                <p className="card-text">{quiz['subject']} questions.</p>
                                 <Link to={`/${id}/start`} className="btn btn-primary">
                                     Start
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
