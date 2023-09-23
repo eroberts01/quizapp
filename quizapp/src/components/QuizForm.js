@@ -47,7 +47,7 @@ export default function QuizForm(props) {
                                         onChange={(e) => {
                                             answers[id] = { question: a + "_" + id, answer: e.target.value };
                                             setAnswers(answers);
-                                            setAnsweredSoFar(Array.from(Object.values(answers)).length)
+                                            setAnsweredSoFar(Array.from(Object.values(answers)).length);
                                         }} />
                                     <label htmlFor={a + '_' + id} className='p-2'>{q.answer_choices[a]}</label>
                                 </div>)
@@ -61,6 +61,11 @@ export default function QuizForm(props) {
                         }
                     </div>)
                 }
+                {!validate() ? 
+                <div key={answeredSoFar}>All questions must be answered before submitting.
+                    <br/>Unanswered questions: <br/>
+                    {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x=>x+1).join(", ")}</div> 
+                : ""}
                 <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
             </Form> :
             <AnswerFeedback data={data} />
