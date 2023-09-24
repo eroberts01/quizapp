@@ -20,7 +20,7 @@ export default function QuizForm(props) {
         setQuestions(shuffle(questions_file[quizId]["questions"]));
     }, []);
     const [answers, setAnswers] = useState({});
-    const [data, setData] = useState({ passedQuestions: [], quizResults: [], isVisible: false });
+    const [data, setData] = useState({ passedQuestions: [], quizResults: [], isVisible: false, onSetSearchBarVisible: false});
     const [answeredSoFar, setAnsweredSoFar] = useState(0);
     const validate = () => {
         return answeredSoFar >= Array.from(Object.values(shuffled_questions)).length;
@@ -29,12 +29,17 @@ export default function QuizForm(props) {
         !data.isVisible ?
             <Form className='p-3 col-6' onSubmit={(e) => {
                 e.preventDefault();
-                props.onSetSearchBarVisible(true);
+                props.onSetSearchBarVisible(false);
                 setData({
                     passedQuestions: shuffled_questions,
                     quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
                 });
             }}>
+                 {!validate() ? 
+                <div key={answeredSoFar} className='text-center text-uppercase text-danger'><h6>All questions required</h6>
+                    QUESTIONS LEFT: 
+                    {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x=>x+1).join(", ")}</div> 
+                : ""}
                 <h2 className='mb-5 text-center'>{questions_file[quizId]["name"]}</h2>
                 <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
@@ -61,13 +66,9 @@ export default function QuizForm(props) {
                         }
                     </div>)
                 }
-                {!validate() ? 
-                <div key={answeredSoFar}>All questions must be answered before submitting.
-                    <br/>Unanswered questions: <br/>
-                    {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x=>x+1).join(", ")}</div> 
-                : ""}
+               
                 <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
             </Form> :
-            <AnswerFeedback data={data} />
+            <AnswerFeedback data={data}/>
     );
 }
