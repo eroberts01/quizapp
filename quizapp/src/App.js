@@ -23,10 +23,10 @@ function App() {
       < div className="App">
         <Navbar onFilterQuizzes={onFilterQuizzes} searchBarVisible={searchBarVisible} />
       <Routes>
-        <Route path="/:id/start" element={<QuizPage/>}/>
+        <Route path="/:id/start" element={<QuizPage onSetSearchBarVisible={onSetSearchBarVisible}/>}/>
         <Route path="/:id" element={<QuizForm onSetSearchBarVisible={onSetSearchBarVisible}/>}/>
         <Route path="/shuffle" element={<QuestionShuffler/>}/>
-        <Route path="" element={<QuizRow searchVal={quizVal}/>}/>
+        <Route path="" element={<QuizRow searchVal={quizVal} onSetSearchBarVisible={onSetSearchBarVisible}/>}/>
       </Routes>
       </div>
   );

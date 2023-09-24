@@ -3,9 +3,10 @@ import questions_file from './../questions.json';
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 
-export default function QuizRow({ searchVal }) {
+export default function QuizRow({ searchVal, onSetSearchBarVisible }) {
     const [questions, setQuestions] = useState(Object.entries(questions_file));
     useEffect(() => {
+        onSetSearchBarVisible(true);
         if (searchVal) {
             setQuestions(Object.entries(questions_file).filter(([id, quiz]) => quiz.name.toLowerCase().includes(searchVal.toLowerCase())));
         }else if(searchVal.length === 0){

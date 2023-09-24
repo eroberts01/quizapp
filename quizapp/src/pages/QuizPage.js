@@ -1,9 +1,10 @@
 import { useParams, Link } from "react-router-dom";
 import questions_file from './../questions.json';
 
-export default function QuizPage() {
+export default function QuizPage(props) {
     const params = useParams();
     const quizId = params['id'];
+    props.onSetSearchBarVisible(false);
 
     const quiz = questions_file[quizId];
 
