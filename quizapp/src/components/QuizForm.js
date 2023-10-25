@@ -29,6 +29,10 @@ export default function QuizForm(props) {
         !data.isVisible ?
             <Form className='p-3' onSubmit={(e) => {
                 e.preventDefault();
+                const answer = window.confirm("Are you sure you would like to submit the quiz?");
+                if(!answer) {
+                    return;
+                }
                 props.onSetSearchBarVisible(false);
                 setData({
                     passedQuestions: shuffled_questions,
