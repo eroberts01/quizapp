@@ -27,7 +27,7 @@ export default function QuizForm(props) {
     };
     return (
         !data.isVisible ?
-            <Form className='p-3 col-6' onSubmit={(e) => {
+            <Form className='p-3' onSubmit={(e) => {
                 e.preventDefault();
                 props.onSetSearchBarVisible(false);
                 setData({
@@ -36,9 +36,10 @@ export default function QuizForm(props) {
                 });
             }}>
                  {!validate() ? 
-                <div key={answeredSoFar} className='text-center text-uppercase text-danger'><h6>All questions required</h6>
-                    QUESTIONS LEFT: 
-                    {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x=>x+1).join(", ")}</div> 
+                <h5 key={answeredSoFar} className='alert alert-info text-wrap w-25 text-center' style={{'position': 'fixed', 'bottom': 0, 'right': 0}}>
+                    <h6>QUESTIONS LEFT:</h6>
+                    {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x=>x+1).join(", ")}
+                    </h5> 
                 : ""}
                 <h2 className='mb-5 text-center'>{questions_file[quizId]["name"]}</h2>
                 <h3 className='mb-5'>Questions:</h3>
