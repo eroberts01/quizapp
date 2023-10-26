@@ -131,6 +131,113 @@
                 "answer": "False"
             },
             {
+                "question": "Which of the following standard algorithms is not Dynamic Programming based?",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"Bellman–Ford Algorithm for single source shortest path",
+                    "B":"Floyd Warshall Algorithm for all pairs shortest paths",
+                    "C":"0-1 Knapsack problem",
+                    "D":"Prim's Minimum Spanning Tree"
+                },
+                "answer": "Prim's Minimum Spanning Tree"
+            },
+            {
+                "question": "We use dynamic programming approach when?",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"We need an optimal solution",
+                    "B":"The solution has optimal substructure",
+                    "C":"The problem can be reduced to the 3-SAT problem",
+                    "D":"Its faster than greedy"
+                },
+                "answer": "The solution has optimal substructure"
+            },
+            {
+                "question": "What is memoization in the context of dynamic programming?",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"A technique to write memory-efficient programs.",
+                    "B":"A way to avoid solving subproblems by storing their solutions and reusing them.",
+                    "C":"A process of converting recursive algorithms into iterative ones",
+                    "D":"A method of analyzing the time complexity of algorithms"
+                },
+                "answer": "A way to avoid solving subproblems by storing their solutions and reusing them."
+            },
+            {
+                "question": "Which of the following process scheduling algorithm may lead to starvation?",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"FIFO",
+                    "B":"Round Robin",
+                    "C":"Shortest job Next",
+                    "D":"Pick a random one"
+                },
+                "answer": "Shortest Job Next"
+            },
+            {
+                "question": "If the quantum time of round robin algorithm is very large, then it is equivalent to:",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"FIFO",
+                    "B":"Lottery Scheduling",
+                    "C":"Shortest job Next",
+                    "D":"None of the above"
+                },
+                "answer": "FIFO"
+            },
+            {
+                "question": "Which of the following is not an optimization criterion in the design of a CPU scheduling algorithm?",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"Minimum CPU utilization",
+                    "B":"Maximum Throughput",
+                    "C":"Minimum turnaround time",
+                    "D":"Minimum waiting time"
+                },
+                "answer": "Minimum CPU utilization"
+            },
+            {
+                "question": "When an interrupt occurs, an operating system",
+                "type": "multiple_choice",
+                "answer_choices": {
+                    "A":"Ignores the interrupt",
+                    "B":"always changes state of interrupted process to 'blocked' and schedules another process",
+                    "C":"always resumes execution of interrupted process after processing the interrupt",
+                    "D":"may change the state of interrupted process to 'blocked'and schedule another process"
+                },
+                "answer": "may change the state of interrupted process to 'blocked'and schedule another process"
+            },
+            {
+                "question": "________ refers to the physical parts of a computer that u can see and touch",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "hardware"
+            },
+            {
+                "question": "________ is a process that aims to find and remove bugs from the source code of a program.",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "debugging"
+            },
+            {
+                "question": "________ stands for integrated development environment.",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "IDE"
+            },
+            {
+                "question": "________  is a computer program that supports the main system on a computer when it starts up.",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "kernel"
+            },
+            {
+                "question": "________  stands for local area network.",
+                "type": "fill_in_the_blank",
+                "answer_choices": {},
+                "answer": "lan"
+            },
+            {
                 "question": "To find the shortest path from one vertex to another in an unweighted graph, you should use Dijkstra’s algorithm as it is the most efficient solution.",
                 "type": "true_false",
                 "answer_choices": {
