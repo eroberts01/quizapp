@@ -73,7 +73,6 @@ export default function QuizForm(props) {
                             }
                         </div>
                         <br></br>
-                        <br></br>
                     </>
                 )
                 }
