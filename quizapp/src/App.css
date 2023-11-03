@@ -20,6 +20,15 @@ body {
   text-align: center;
   align-content: center;
 }
+
+.question-header {
+  display: flex;
+}
+
+.answered {
+  justify-content: right;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
