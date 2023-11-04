@@ -4,16 +4,26 @@ import questions_file from './../questions.json';
 import { Button, Form, Breadcrumb } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AnswerFeedback } from './AnswerFeedback';
+
 // taken from https://www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
 const shuffle = (array) => {
     return array.sort(() => Math.random() - 0.5);
 }
 
+const speak = (text) => {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    synth.speak(utterance);
+}
+
 
 export default function QuizForm(props) {
+    const width = window.innerWidth/3;
     const navigate = useNavigate();
     const params = useParams();
     const quizId = params['id'];
+    let [enableSpeech, setEnableSpeech] = useState(false);
+
     const [shuffled_questions, setQuestions] = useState([]);
     const handleBeforeUnload = (event) => {
         event.preventDefault();
@@ -27,88 +37,118 @@ export default function QuizForm(props) {
         window.addEventListener("beforeunload", handleBeforeUnload);
         return () => {
             window.removeEventListener("beforeunload", handleBeforeUnload);
+            const synth = window.speechSynthesis;
+            synth.cancel();
         }
     }, []);
+
+    // New state for selected question
+    const [selectedQuestion, setSelectedQuestion] = useState(null);
+
     const [answers, setAnswers] = useState({});
     const [data, setData] = useState({ passedQuestions: [], quizResults: [], isVisible: false, onSetSearchBarVisible: false });
     const [answeredSoFar, setAnsweredSoFar] = useState(0);
+
     const validate = () => {
         return answeredSoFar >= Array.from(Object.values(shuffled_questions)).length;
     };
+
     return (
         !data.isVisible ?
             <Form className='p-3 col-6' onSubmit={(e) => {
-                    e.preventDefault();
-                    const answer = window.confirm("Are you sure you would like to submit the quiz?");
-                    if (!answer) {
-                        return;
-                    }
-                    props.onSetSearchBarVisible(false);
-                    setData({
-                        passedQuestions: shuffled_questions,
-                        quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
-                    });
+                e.preventDefault();
+                const answer = window.confirm("Are you sure you would like to submit the quiz?");
+                if (!answer) {
+                    return;
+                }
+                props.onSetSearchBarVisible(false);
+                setData({
+                    passedQuestions: shuffled_questions,
+                    quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
+                });
             }}>
+                <h5><Form.Check type="switch" id="custom-switch" label={<span title="Click on each question to speak it aloud.">Speak Question</span>}
+                   checked={enableSpeech}
+                   onChange={() => {{ 
+                        setEnableSpeech(!enableSpeech)
+                    } }}
+                    size="lg" style={{ 'position': 'absolute', 'top': 100, 'right': width }} /></h5>
                 {!validate() ?
-                    <h5 key={answeredSoFar} className='alert alert-info text-wrap w-25 text-center' style={{ 'position': 'fixed', 'bottom': 0, 'right': 0 }}>
+                    <h5 key={answeredSoFar} className='alert alert-info text-wrap w-25 text-center' style={{ 'position': 'fixed', 'bottom': 10, 'right': 0 }}>
                         <h6>QUESTIONS LEFT:</h6>
                         {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x => x + 1).join(", ")}
                     </h5>
                     : ""}
-                    
-                    <Breadcrumb>
-                       <Breadcrumb.Item href='/quizapp'>Home</Breadcrumb.Item>
-                        <Breadcrumb.Item href={"/quizapp#/" + quizId + "/start"}>
-                            {questions_file[quizId]["name"]} start
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item active>{questions_file[quizId]["name"]}</Breadcrumb.Item>
-                    </Breadcrumb>
+
+                <Breadcrumb>
+                    <Breadcrumb.Item href='/quizapp'>Home</Breadcrumb.Item>
+                    <Breadcrumb.Item href={"/quizapp#/" + quizId + "/start"}>
+                        {questions_file[quizId]["name"]} start
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item active>{questions_file[quizId]["name"]}</Breadcrumb.Item>
+                </Breadcrumb>
                 <button className='btn btn-primary btn-lg' onClick={(e) => {
                     e.preventDefault();
                     navigate(-1);
-                }
-                    }>Go back</button>
+                }}>Go back</button>
                 <h2 className='mb-5 text-center'>{questions_file[quizId]["name"]}</h2>
                 <h3 className='mb-5'>Questions:</h3>
-                {shuffled_questions.map((q, id) =>
+                {shuffled_questions.map((q, id) => (
                     <>
-                        <div className='question card pt-3 pb-3 ps-3 pe-3' style={{ 'text-align': 'left', 'align-content': 'left', 
-                        'background-color': answers.hasOwnProperty(id) ? '#3c5fa6' : '#434a58'}}>
-                        <div class="question-header">
-                            <h6 class="card-header">{id + 1}. {q.question}  </h6>
-                            <h5 class="answered">{answers.hasOwnProperty(id) ? "✔ Answered" : ""}</h5>
-                        </div>
-                        
-                            {/* <p>{id + 1}. {q.question}</p> */}
+                        <div key={id} className={`question card pt-3 pb-3 ps-3 pe-3 ${selectedQuestion === id ? 'selected-question' : ''}`} style={{
+                            'text-align': 'left', 'align-content': 'left',
+                            'background-color': answers.hasOwnProperty(id) ? '#3c5fa6' : '#434a58'
+                        }} onClick={() => {
+                            setSelectedQuestion(id);
+                            console.log("Inside: ", enableSpeech)
+                            if (enableSpeech) {
+                                if (q.type === "multiple_choice" || q.type === "true_false") {
+                                    speak(`Question ${id + 1}: ${q.question}`);
+                                    Object.keys(q.answer_choices).forEach((a) => {
+                                        speak(`Choice ${a}: ${q.answer_choices[a]}`);
+                                    });
+                                } else {
+                                    speak(`Question ${id + 1}: Blank ${q.question.slice(6, q.question.length)}`);
+                                    speak(`Please type your answer in the box.`)
+                                }
+                            }
+                        }}
+                        >
+                            <div className="question-header">
+                                <h6 className="card-header">{id + 1}. {q.question}  </h6>
+                                <h5 className="answered">{answers.hasOwnProperty(id) ? "✔ Answered" : ""}</h5>
+                            </div>
+
                             {q.type === "multiple_choice" || q.type === "true_false" ?
-                                Object.keys(q.answer_choices).map((a) =>
+                                Object.keys(q.answer_choices).map((a) => (
                                     <div className='answerChoices'>
-                                        <input type="radio" name={id} className='p-2' id={a + '_' + id} value={q.answer_choices[a]}
-                                            onChange={(e) => {
-                                                answers[id] = { question: a + "_" + id, answer: e.target.value };
-                                                setAnswers(answers);
-                                                setAnsweredSoFar(Array.from(Object.values(answers)).length);
-                                            }} />
+                                        <input type="radio" name={id} className='p-2' id={a + '_' + id} value={q.answer_choices[a]} onChange={(e) => {
+                                            answers[id] = { question: a + "_" + id, answer: e.target.value };
+                                            setAnswers(answers);
+                                            setAnsweredSoFar(Array.from(Object.values(answers)).length);
+                                        }}
+                                        />
                                         <label htmlFor={a + '_' + id} className='p-2'>{q.answer_choices[a]}</label>
-                                    </div>)
+                                    </div>
+                                ))
                                 :
-                                <input className="form-control" type="text" name={id} id={id} placeholder='answer'
-                                    onChange={(e) => {
-                                        if(e.target.value) {
-                                            answers[id] = { question: id, answer: e.target.value.toLowerCase() };
-                                        }
-                                        else if (id in answers) {
-                                            delete answers[id];
-                                        }
-                                        setAnswers(answers);
-                                        setAnsweredSoFar(Array.from(Object.values(answers)).length)
-                                    }} />
+                                <input className="form-control" type="text" name={id} id={id} placeholder='answer' onChange={(e) => {
+                                    if (e.target.value) {
+                                        answers[id] = { question: id, answer: e.target.value.toLowerCase() };
+                                    }
+                                    else if (id in answers) {
+                                        delete answers[id];
+                                    }
+                                    setAnswers(answers);
+                                    setAnsweredSoFar(Array.from(Object.values(answers)).length)
+                                }}
+                                />
                             }
                         </div>
                         <br></br>
                     </>
-                )
-                }
+
+                ))}
                 <div className="d-flex justify-content-between">
                     <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
                     <Button variant="danger" className='btn d-block btn-secondary mt-3' onClick={() => {
