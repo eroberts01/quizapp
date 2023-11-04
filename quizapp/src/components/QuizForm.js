@@ -15,10 +15,19 @@ export default function QuizForm(props) {
     const params = useParams();
     const quizId = params['id'];
     const [shuffled_questions, setQuestions] = useState([]);
+    const handleBeforeUnload = (event) => {
+        event.preventDefault();
+        event.returnValue = '';
+    }
     const [leavingQuiz, setLeavingQuiz] = useState(false);
     useEffect(() => {
         props.onSetSearchBarVisible(false);
         setQuestions(shuffle(questions_file[quizId]["questions"]));
+        document.title = questions_file[quizId]["name"];
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        }
     }, []);
     const [answers, setAnswers] = useState({});
     const [data, setData] = useState({ passedQuestions: [], quizResults: [], isVisible: false, onSetSearchBarVisible: false });
@@ -63,8 +72,13 @@ export default function QuizForm(props) {
                 <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
                     <>
-                        <div className='question card pt-3 pb-3 ps-3 pe-3' style={{ 'text-align': 'left', 'align-content': 'left', 'background-color':'#434a58'}}>
-                        <h6 class="card-header">{id + 1}. {q.question}</h6>
+                        <div className='question card pt-3 pb-3 ps-3 pe-3' style={{ 'text-align': 'left', 'align-content': 'left', 
+                        'background-color': answers.hasOwnProperty(id) ? '#3c5fa6' : '#434a58'}}>
+                        <div class="question-header">
+                            <h6 class="card-header">{id + 1}. {q.question}  </h6>
+                            <h5 class="answered">{answers.hasOwnProperty(id) ? "✔ Answered" : ""}</h5>
+                        </div>
+                        
                             {/* <p>{id + 1}. {q.question}</p> */}
                             {q.type === "multiple_choice" || q.type === "true_false" ?
                                 Object.keys(q.answer_choices).map((a) =>
@@ -80,7 +94,12 @@ export default function QuizForm(props) {
                                 :
                                 <input className="form-control" name={id} id={id} placeholder='answer'
                                     onChange={(e) => {
-                                        answers[id] = { question: id, answer: e.target.value.toLowerCase() };
+                                        if(e.target.value) {
+                                            answers[id] = { question: id, answer: e.target.value.toLowerCase() };
+                                        }
+                                        else if (id in answers) {
+                                            delete answers[id];
+                                        }
                                         setAnswers(answers);
                                         setAnsweredSoFar(Array.from(Object.values(answers)).length)
                                     }} />
