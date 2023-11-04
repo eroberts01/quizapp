@@ -92,7 +92,7 @@ export default function QuizForm(props) {
                                         <label htmlFor={a + '_' + id} className='p-2'>{q.answer_choices[a]}</label>
                                     </div>)
                                 :
-                                <input className="form-control" name={id} id={id} placeholder='answer'
+                                <input className="form-control" type="text" name={id} id={id} placeholder='answer'
                                     onChange={(e) => {
                                         if(e.target.value) {
                                             answers[id] = { question: id, answer: e.target.value.toLowerCase() };
@@ -109,8 +109,26 @@ export default function QuizForm(props) {
                     </>
                 )
                 }
-
-                <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
+                <div className="d-flex justify-content-between">
+                    <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
+                    <Button variant="danger" className='btn d-block btn-secondary mt-3' onClick={() => {
+                        const answer = window.confirm("Are you sure you would like to reset the quiz? This will erase your answers");
+                        if (!answer) {
+                            return;
+                        }
+                        setAnswers({});
+                        setAnsweredSoFar(0);
+                        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+                            radio.checked = false;
+                        });
+                        document.querySelectorAll('input[type="text"]').forEach((input) => {
+                            input.value = '';
+                        });
+                    }}
+                    >
+                        Reset
+                    </Button>
+                </div>
             </Form> :
             <AnswerFeedback data={data} />
     );
