@@ -49,8 +49,8 @@ export default function QuizForm(props) {
                 <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
                     <>
-                        <div className='question card pt-3 pb-3 ps-3 pe-3' style={{ 'text-align': 'left', 'align-content': 'left', 'background-color':'#434a58'}}>
-                        <h6 class="card-header">{id + 1}. {q.question}</h6>
+                        <div className='question card pt-3 pb-3 ps-3 pe-3' style={{ 'text-align': 'left', 'align-content': 'left', 'background-color': '#434a58' }}>
+                            <h6 class="card-header">{id + 1}. {q.question}</h6>
                             {/* <p>{id + 1}. {q.question}</p> */}
                             {q.type === "multiple_choice" || q.type === "true_false" ?
                                 Object.keys(q.answer_choices).map((a) =>
@@ -64,7 +64,7 @@ export default function QuizForm(props) {
                                         <label htmlFor={a + '_' + id} className='p-2'>{q.answer_choices[a]}</label>
                                     </div>)
                                 :
-                                <input className="form-control" name={id} id={id} placeholder='answer'
+                                <input className="form-control" type="text" name={id} id={id} placeholder='answer'
                                     onChange={(e) => {
                                         answers[id] = { question: id, answer: e.target.value.toLowerCase() };
                                         setAnswers(answers);
@@ -76,8 +76,26 @@ export default function QuizForm(props) {
                     </>
                 )
                 }
-
-                <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
+                <div className="d-flex justify-content-between">
+                    <Button type="submit" className='btn d-block btn-primary mt-3' disabled={!validate()}>Submit</Button>
+                    <Button variant="danger" className='btn d-block btn-secondary mt-3' onClick={() => {
+                        const answer = window.confirm("Are you sure you would like to reset the quiz? This will erase your answers");
+                        if (!answer) {
+                            return;
+                        }
+                        setAnswers({});
+                        setAnsweredSoFar(0);
+                        document.querySelectorAll('input[type="radio"]').forEach((radio) => {
+                            radio.checked = false;
+                        });
+                        document.querySelectorAll('input[type="text"]').forEach((input) => {
+                            input.value = '';
+                        });
+                    }}
+                    >
+                        Reset
+                    </Button>
+                </div>
             </Form> :
             <AnswerFeedback data={data} />
     );
