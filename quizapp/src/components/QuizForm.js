@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import questions_file from './../questions.json';
-import { Alert, Button, Form } from 'react-bootstrap';
-import QuizResults from '../util/QuizResults';
+import { Button, Form, Breadcrumb } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { AnswerFeedback } from './AnswerFeedback';
 // taken from https://www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
@@ -12,9 +11,11 @@ const shuffle = (array) => {
 
 
 export default function QuizForm(props) {
+    const navigate = useNavigate();
     const params = useParams();
     const quizId = params['id'];
     const [shuffled_questions, setQuestions] = useState([]);
+    const [leavingQuiz, setLeavingQuiz] = useState(false);
     useEffect(() => {
         props.onSetSearchBarVisible(false);
         setQuestions(shuffle(questions_file[quizId]["questions"]));
@@ -28,16 +29,16 @@ export default function QuizForm(props) {
     return (
         !data.isVisible ?
             <Form className='p-3 col-6' onSubmit={(e) => {
-                e.preventDefault();
-                const answer = window.confirm("Are you sure you would like to submit the quiz?");
-                if (!answer) {
-                    return;
-                }
-                props.onSetSearchBarVisible(false);
-                setData({
-                    passedQuestions: shuffled_questions,
-                    quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
-                });
+                    e.preventDefault();
+                    const answer = window.confirm("Are you sure you would like to submit the quiz?");
+                    if (!answer) {
+                        return;
+                    }
+                    props.onSetSearchBarVisible(false);
+                    setData({
+                        passedQuestions: shuffled_questions,
+                        quizResults: Array.from(Object.values(answers).map(ans => ans.answer)), isVisible: true
+                    });
             }}>
                 {!validate() ?
                     <h5 key={answeredSoFar} className='alert alert-info text-wrap w-25 text-center' style={{ 'position': 'fixed', 'bottom': 0, 'right': 0 }}>
@@ -45,6 +46,19 @@ export default function QuizForm(props) {
                         {[...Array(shuffled_questions.length).keys()].filter((id) => !Object.keys(answers).includes(id.toString())).map(x => x + 1).join(", ")}
                     </h5>
                     : ""}
+                    
+                    <Breadcrumb>
+                       <Breadcrumb.Item href='/quizapp'>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item href={"/quizapp#/" + quizId + "/start"}>
+                            {questions_file[quizId]["name"]} start
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item active>{questions_file[quizId]["name"]}</Breadcrumb.Item>
+                    </Breadcrumb>
+                <button className='btn btn-primary btn-lg' onClick={(e) => {
+                    e.preventDefault();
+                    navigate(-1);
+                }
+                    }>Go back</button>
                 <h2 className='mb-5 text-center'>{questions_file[quizId]["name"]}</h2>
                 <h3 className='mb-5'>Questions:</h3>
                 {shuffled_questions.map((q, id) =>
