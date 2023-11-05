@@ -208,31 +208,31 @@
                 "answer": "may change the state of interrupted process to 'blocked'and schedule another process"
             },
             {
-                "question": "________ refers to the physical parts of a computer that u can see and touch",
+                "question": "______ refers to the physical parts of a computer that u can see and touch",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "hardware"
             },
             {
-                "question": "________ is a process that aims to find and remove bugs from the source code of a program.",
+                "question": "______ is a process that aims to find and remove bugs from the source code of a program.",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "debugging"
             },
             {
-                "question": "________ stands for integrated development environment.",
+                "question": "______ stands for integrated development environment.",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "IDE"
             },
             {
-                "question": "________  is a computer program that supports the main system on a computer when it starts up.",
+                "question": "______  is a computer program that supports the main system on a computer when it starts up.",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "kernel"
             },
             {
-                "question": "________  stands for local area network.",
+                "question": "______  stands for local area network.",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "lan"
