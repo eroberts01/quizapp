@@ -24,6 +24,21 @@ export default function QuizForm(props) {
     const quizId = params['id'];
     let [enableSpeech, setEnableSpeech] = useState(false);
 
+    const [capsLockOn, setCapsLockOn] = useState(false);
+
+    useEffect(() => {
+        const handleCapsLock = (event) => {
+            const isCapsLockOn = event.getModifierState('CapsLock');
+            setCapsLockOn(isCapsLockOn);
+        };
+
+        window.addEventListener('keydown', handleCapsLock);
+
+        return () => {
+            window.removeEventListener('keydown', handleCapsLock);
+        };
+    }, []);
+
     const [shuffled_questions, setQuestions] = useState([]);
     const handleBeforeUnload = (event) => {
         event.preventDefault();
@@ -74,7 +89,8 @@ export default function QuizForm(props) {
                             setEnableSpeech(!enableSpeech)
                         }
                     }}
-                    size="lg" style={{ 'position': 'absolute', 'top': 100, 'right': width }} /></h5>
+                    size="lg" style={{ 'position': 'absolute', 'top': 100, 'right': width }} />
+                   </h5>
                 {!validate() ?
                     <h5 key={answeredSoFar} className='alert alert-info text-wrap w-25 text-center' style={{ 'position': 'fixed', 'bottom': 10, 'right': 0 }}>
                         <h6>QUESTIONS LEFT:</h6>
@@ -100,25 +116,26 @@ export default function QuizForm(props) {
                         <div key={id} className={`question card pt-3 pb-3 ps-3 pe-3 ${selectedQuestion === id ? 'selected-question' : ''}`} style={{
                             'text-align': 'left', 'align-content': 'left',
                             'background-color': answers.hasOwnProperty(id) ? '#3c5fa6' : '#434a58'
-                        }} onClick={() => {
-                            setSelectedQuestion(id);
-                            if (enableSpeech) {
-                                if (q.type === "multiple_choice" || q.type === "true_false") {
-                                    speak(`Question ${id + 1}: ${q.question}`);
-                                    Object.keys(q.answer_choices).forEach((a) => {
-                                        speak(`Choice ${a}: ${q.answer_choices[a]}`);
-                                    });
-                                } else {
-                                    speak(`Question ${id + 1}: Blank ${q.question.slice(6, q.question.length)}`);
-                                    speak(`Please type your answer in the box.`)
-                                }
-                            }
-                        }}
-                        >
+                        }} >
                             <div className="question-header">
-                                <h6 className="card-header">{id + 1}. {q.question}  </h6>
+                                <h6 className="card-header">{id + 1}. {q.question}  
+                                {capsLockOn ? (q.type === "fill_in_the_blank" ? <h6><span style={{ color: 'yellow', marginLeft: '0px' }}>CAPS LOCK ON</span></h6> : null) : <></>}  </h6>
                                 {enableSpeech ?
-                                    <div title='Click to read out loud'>
+                                    <div title='Click to read out loud'
+                                        onClick={() => {
+                                            setSelectedQuestion(id);
+                                            if (enableSpeech) {
+                                                if (q.type === "multiple_choice" || q.type === "true_false") {
+                                                    speak(`Question ${id + 1}: ${q.question}`);
+                                                    Object.keys(q.answer_choices).forEach((a) => {
+                                                        speak(`Choice ${a}: ${q.answer_choices[a]}`);
+                                                    });
+                                                } else {
+                                                    speak(`Question ${id + 1}: Blank ${q.question.slice(6, q.question.length)}`);
+                                                    speak(`Please type your answer in the box.`)
+                                                }
+                                            }
+                                        }}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#fdf274" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                                             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
@@ -143,7 +160,8 @@ export default function QuizForm(props) {
                                     </div>
                                 ))
                                 :
-                                <input className="form-control" type="text" name={id} id={id} placeholder='answer' onChange={(e) => {
+                                <input className="form-control" type="text" name={id} id={id} placeholder='answer' 
+                                onChange={(e) => {
                                     if (e.target.value) {
                                         answers[id] = { question: id, answer: e.target.value.toLowerCase() };
                                     }
