@@ -37,7 +37,7 @@
                 "answer": "C"
             },
             {
-                "question": "_____ is a data structure of collection of nodes which contain some data and a link to another node",
+                "question": "_____ is a data structure of collection of nodes which contain some data and a link to another node     ",
                 "type": "fill_in_the_blank",
                 "answer_choices": {},
                 "answer": "linked list"
